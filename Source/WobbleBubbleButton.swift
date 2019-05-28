@@ -24,66 +24,66 @@ open class WobbleBubbleButton: UIButton {
   //
   fileprivate func addAnimationForView(_ view: UIView) {
     
-    //create an animation to follow a circular path
-    let pathAnimation = CAKeyframeAnimation(keyPath: "position")
-    
-    //interpolate the movement to be more smooth
-    pathAnimation.calculationMode = kCAAnimationPaced
-    //apply transformation at the end of animation (not really needed since it runs forever)
-    pathAnimation.fillMode = kCAFillModeForwards;
-    pathAnimation.isRemovedOnCompletion = false;
-    //run forever
-    pathAnimation.repeatCount = Float.infinity;
-    //no ease in/out to have the same speed along the path
-    pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-    pathAnimation.duration = random(min: 5, max: 8)
+      //create an animation to follow a circular path
+      let pathAnimation = CAKeyframeAnimation(keyPath: "position")
 
-    
-    //The circle to follow will be inside the circleContainer frame.
-    //it should be a frame around the center of your view to animate.
-    //do not make it to large, a width/height of 3-4 will be enough.
-    let curvedPath = CGMutablePath()
-    let circleContainer = view.frame.insetBy(dx: 23/50 * view.frame.size.width, dy: 23/50 * view.frame.size.height)
-//    CGPathAddEllipseInRect(curvedPath, nil, circleContainer);
-    curvedPath.addEllipse(in: circleContainer)
-    
-    //add the path to the animation
-    pathAnimation.path = curvedPath;
-    //release path
-    //    CGPathRelease(curvedPath);
-    //add animation to the view's layer
-    view.layer.add(pathAnimation, forKey: "myCircleAnimation")
-    
-    //create an animation to scale the width of the view
-    let scaleX = CAKeyframeAnimation(keyPath: "transform.scale.x")
-    //set the duration
-    scaleX.duration = 2
-    //it starts from scale factor 1, scales to 1.05 and back to 1
-    scaleX.values = [1, 1.05, 1]
-    //time percentage when the values above will be reached.
-    //i.e. 1.05 will be reached just as half the duration has passed.
-    let scaleXTime = random(min: 1, max: 3)
-//    scaleX.keyTimes = [0.0, scaleXTime/2, scaleXTime]
-    scaleX.keyTimes = [0.0, NSNumber(value: scaleXTime/2), NSNumber(value: scaleXTime)]
-    scaleX.repeatCount = Float.infinity;
-    //play animation backwards on repeat (not really needed since it scales back to 1)
-    scaleX.autoreverses = true
-    //ease in/out animation for more natural look
-    scaleX.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-    //add the animation to the view's layer
-    view.layer.add(scaleX, forKey: "scaleXAnimation")
-    
-    //create the height-scale animation just like the width one above
-    //but slightly increased duration so they will not animate synchronously
-    let scaleY = CAKeyframeAnimation(keyPath: "transform.scale.y")
-    scaleY.duration = 2.5
-    scaleY.values = [1.0, 1.05, 1.0]
-    let scaleYTime = random(min: 1, max: 3)
-    scaleY.keyTimes = [0.0, NSNumber(value: scaleYTime/2), NSNumber(value: scaleYTime)]
-    scaleY.repeatCount = Float.infinity
-    scaleY.autoreverses = true
-    scaleX.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-    view.layer.add(scaleY, forKey: "scaleYAnimation")
+      //interpolate the movement to be more smooth
+      pathAnimation.calculationMode = CAAnimationCalculationMode.paced
+      //apply transformation at the end of animation (not really needed since it runs forever)
+      pathAnimation.fillMode = CAMediaTimingFillMode.forwards;
+      pathAnimation.isRemovedOnCompletion = false;
+      //run forever
+      pathAnimation.repeatCount = Float.infinity;
+      //no ease in/out to have the same speed along the path
+      pathAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+      pathAnimation.duration = random(min: 5, max: 8)
+
+
+      //The circle to follow will be inside the circleContainer frame.
+      //it should be a frame around the center of your view to animate.
+      //do not make it to large, a width/height of 3-4 will be enough.
+      let curvedPath = CGMutablePath()
+      let circleContainer = view.frame.insetBy(dx: 23/50 * view.frame.size.width, dy: 23/50 * view.frame.size.height)
+      //    CGPathAddEllipseInRect(curvedPath, nil, circleContainer);
+      curvedPath.addEllipse(in: circleContainer)
+
+      //add the path to the animation
+      pathAnimation.path = curvedPath;
+      //release path
+      //    CGPathRelease(curvedPath);
+      //add animation to the view's layer
+      view.layer.add(pathAnimation, forKey: "myCircleAnimation")
+
+      //create an animation to scale the width of the view
+      let scaleX = CAKeyframeAnimation(keyPath: "transform.scale.x")
+      //set the duration
+      scaleX.duration = 2
+      //it starts from scale factor 1, scales to 1.05 and back to 1
+      scaleX.values = [1, 1.05, 1]
+      //time percentage when the values above will be reached.
+      //i.e. 1.05 will be reached just as half the duration has passed.
+      let scaleXTime = random(min: 1, max: 3)
+      //    scaleX.keyTimes = [0.0, scaleXTime/2, scaleXTime]
+      scaleX.keyTimes = [0.0, NSNumber(value: scaleXTime/2), NSNumber(value: scaleXTime)]
+      scaleX.repeatCount = Float.infinity;
+      //play animation backwards on repeat (not really needed since it scales back to 1)
+      scaleX.autoreverses = true
+      //ease in/out animation for more natural look
+      scaleX.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+      //add the animation to the view's layer
+      view.layer.add(scaleX, forKey: "scaleXAnimation")
+
+      //create the height-scale animation just like the width one above
+      //but slightly increased duration so they will not animate synchronously
+      let scaleY = CAKeyframeAnimation(keyPath: "transform.scale.y")
+      scaleY.duration = 2.5
+      scaleY.values = [1.0, 1.05, 1.0]
+      let scaleYTime = random(min: 1, max: 3)
+      scaleY.keyTimes = [0.0, NSNumber(value: scaleYTime/2), NSNumber(value: scaleYTime)]
+      scaleY.repeatCount = Float.infinity
+      scaleY.autoreverses = true
+      scaleX.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+      view.layer.add(scaleY, forKey: "scaleYAnimation")
   }
   
   //
